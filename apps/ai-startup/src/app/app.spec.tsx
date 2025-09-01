@@ -20,8 +20,7 @@ describe('App', () => {
       </BrowserRouter>
     );
     expect(
-      getAllByText(new RegExp('Welcome @ai-startup/ai-startup', 'gi')).length >
-        0
+      getAllByText(/Welcome @ai-startup\/ai-startup/gi).length > 0
     ).toBeTruthy();
   });
 });
