@@ -21,6 +21,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
+interface DefaultNavbarProps {
+  appName?: string;
+}
+
 const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
@@ -28,7 +32,7 @@ const navLinks = [
   { label: 'Contact', path: '/contact' },
 ];
 
-const DefaultNavbar = () => {
+const DefaultNavbar = ({ appName = 'Default App' }: DefaultNavbarProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -84,7 +88,7 @@ const DefaultNavbar = () => {
           to="/"
           sx={{ flexGrow: 1, textDecoration: 'none', color: 'inherit' }}
         >
-          MyApp
+          {appName}
         </Typography>
 
         {/* Search Bar (hidden on mobile for simplicity) */}
