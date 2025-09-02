@@ -1,23 +1,18 @@
 import DefaultNavbar from '@ai-startup/dashboard';
 import { Link, Route, Routes } from 'react-router-dom';
 
+const appName = import.meta.env.VITE_APP_NAME;
+const drawerLinks = [
+  { label: 'Home', path: '/' },
+  { label: 'Services', path: '/services' },
+  { label: 'Contact', path: '/contact' },
+  { label: 'About', path: '/about' },
+];
+
 export function App() {
   return (
     <div>
-      <DefaultNavbar />
-      <br />
-      <hr />
-      <br />
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
-      </nav>
+      <DefaultNavbar appName={appName} drawerLinks={drawerLinks} />
       <Routes>
         <Route
           path="/"
@@ -29,7 +24,7 @@ export function App() {
           }
         />
         <Route
-          path="/page-2"
+          path="/services"
           element={
             <div>
               <Link to="/">Click here to go back to root page.</Link>
@@ -37,7 +32,6 @@ export function App() {
           }
         />
       </Routes>
-      {/* END: routes */}
     </div>
   );
 }

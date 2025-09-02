@@ -23,16 +23,21 @@ import { Link as RouterLink } from 'react-router-dom';
 
 interface DefaultNavbarProps {
   appName?: string;
+  drawerLinks: { label: string; path: string }[];
 }
 
-const navLinks = [
-  { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
-  { label: 'Services', path: '/services' },
-  { label: 'Contact', path: '/contact' },
-];
+const defaultProps: DefaultNavbarProps = {
+  appName: 'Default App',
+  drawerLinks: [
+    { label: 'Home', path: '/' },
+    { label: 'About', path: '/about' },
+  ],
+};
 
-const DefaultNavbar = ({ appName = 'Default App' }: DefaultNavbarProps) => {
+const DefaultNavbar = ({
+  appName = defaultProps.appName,
+  drawerLinks = defaultProps.drawerLinks,
+}: DefaultNavbarProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -55,7 +60,7 @@ const DefaultNavbar = ({ appName = 'Default App' }: DefaultNavbarProps) => {
         style={{ display: 'none' }}
       />
       <List>
-        {navLinks.map((link) => (
+        {drawerLinks.map((link) => (
           <ListItem
             key={link.label}
             component={RouterLink}
@@ -109,7 +114,7 @@ const DefaultNavbar = ({ appName = 'Default App' }: DefaultNavbarProps) => {
         {/* Desktop Links */}
         {!isMobile && (
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {navLinks.map((link) => (
+            {drawerLinks.map((link) => (
               <Button
                 key={link.label}
                 color="inherit"

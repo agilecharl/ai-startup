@@ -20,6 +20,9 @@
     },
     {
       "path": "./libs/dashboard"
+    },
+    {
+      "path": "./libs/commerce"
     }
   ]
 }
