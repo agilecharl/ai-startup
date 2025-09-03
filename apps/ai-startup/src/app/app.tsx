@@ -1,3 +1,4 @@
+import ServicesList from '@ai-startup/commerce';
 import DefaultNavbar from '@ai-startup/dashboard';
 import { Link, Route, Routes } from 'react-router-dom';
 
@@ -23,14 +24,7 @@ export function App() {
             </div>
           }
         />
-        <Route
-          path="/services"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
-          }
-        />
+        <Route path="/services" element={<ServicesList />} />
       </Routes>
     </div>
   );
