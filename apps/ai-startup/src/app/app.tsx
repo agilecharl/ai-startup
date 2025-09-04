@@ -1,3 +1,4 @@
+import AgentsList from '@ai-startup/ai';
 import ServicesList from '@ai-startup/commerce';
 import DefaultNavbar from '@ai-startup/dashboard';
 import { Link, Route, Routes } from 'react-router-dom';
@@ -5,8 +6,8 @@ import { Link, Route, Routes } from 'react-router-dom';
 const appName = import.meta.env.VITE_APP_NAME;
 const drawerLinks = [
   { label: 'Home', path: '/' },
+  { label: 'Agents', path: '/agents' },
   { label: 'Services', path: '/services' },
-  { label: 'Contact', path: '/contact' },
   { label: 'About', path: '/about' },
 ];
 
@@ -24,6 +25,7 @@ export function App() {
             </div>
           }
         />
+        <Route path="/agents" element={<AgentsList />} />
         <Route path="/services" element={<ServicesList />} />
       </Routes>
     </div>

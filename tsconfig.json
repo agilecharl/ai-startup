@@ -23,6 +23,9 @@
     },
     {
       "path": "./libs/commerce"
+    },
+    {
+      "path": "./libs/ai"
     }
   ]
 }
