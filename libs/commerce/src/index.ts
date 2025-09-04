@@ -1,2 +1,2 @@
 export * from './lib/commerce';
-export { default } from './lib/services/service-list';
+export { default } from './lib/services/services-list';
