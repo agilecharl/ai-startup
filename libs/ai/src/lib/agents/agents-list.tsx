@@ -1,3 +1,5 @@
+import { getRecords } from '@ai-startup/data';
+import { useEffect } from 'react';
 import './agents-list.module.css';
 
 const AgentsList = () => {
@@ -28,12 +30,16 @@ const AgentsList = () => {
     },
   ];
 
-  const getAgents = () => {
+  const getAgents = async () => {
    
-    
+    await getRecords()
 
     return agents;
   }
+
+  useEffect(() => {
+    getAgents();
+  }, []);
 
   return (
     <div className="agents-container">
