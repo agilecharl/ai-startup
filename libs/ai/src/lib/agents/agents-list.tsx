@@ -28,12 +28,19 @@ const AgentsList = () => {
     },
   ];
 
+  const getAgents = () => {
+   
+    
+
+    return agents;
+  }
+
   return (
     <div className="agents-container">
       <h2 className="agents-title">Available AI Agents</h2>
       <div className="agents-grid">
-        {agents.map((agent, index) => (
-          <div key={index} className="agent-card">
+        {agents.map((agent) => (
+          <div key={agent.name} className="agent-card">
             <h3 className="agent-name">{agent.name}</h3>
             <p className="agent-description">{agent.description}</p>
             <div className="agent-footer">

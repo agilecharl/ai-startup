@@ -23,5 +23,8 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/redux-persist-webextension-storage": "^1.0.3"
   }
 }

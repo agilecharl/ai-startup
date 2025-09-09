@@ -1,1 +1,3 @@
-export * from './lib/utils.js';
+export * from './lib/rest/rest';
+export * from './lib/utils';
+
