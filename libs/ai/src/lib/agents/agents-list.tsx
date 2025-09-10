@@ -32,7 +32,9 @@ const AgentsList = () => {
 
   const getAgents = async () => {
    
-    await getRecords()
+    await getRecords('/api/agents', {}).then((res) => {
+      console.log('Fetched agents:', res);
+    });
 
     return agents;
   }

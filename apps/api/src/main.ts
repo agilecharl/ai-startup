@@ -1,21 +1,80 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
+import cors from 'cors';
 import express from 'express';
-import * as path from 'path';
-
+import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import { config } from './config';
+import { mongoClient } from './config/db';
+import { globalErrorHandler, notFoundHandler } from './middleware/errorHandler';
+import router from './routes';
+import swaggerDefinition from './swagger';
+console.log('Environment:', process.env.NODE_ENV);
 const app = express();
+const PORT = config.PORT || 3001;
 
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
+const corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200,
+};
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to api!' });
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const specs = swaggerJsdoc({
+    definition: swaggerDefinition,
+    apis: ['./src/routes/*.ts'], // Path to route files
 });
 
-const port = process.env.PORT || 3334;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
+// Initialize MongoDB connection on startup
+const initializeConnections = async () => {
+    try {
+        // MongoDB connection will be established when first needed
+        console.log('Database connections initialized');
+    } catch (error) {
+        console.error('Failed to initialize database connections:', error);
+        process.exit(1);
+    }
+};
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+app.use(router);
+
+// Add 404 handler for undefined routes
+app.use(notFoundHandler);
+
+// Add global error handler (must be last)
+app.use(globalErrorHandler);
+
+// Handle graceful shutdown
+process.on('SIGINT', async () => {
+    console.log('Received SIGINT. Graceful shutdown...');
+    try {
+        await mongoClient.close();
+        console.log('MongoDB connection closed.');
+        process.exit(0);
+    } catch (error) {
+        console.error('Error during graceful shutdown:', error);
+        process.exit(1);
+    }
 });
-server.on('error', console.error);
+
+process.on('SIGTERM', async () => {
+    console.log('Received SIGTERM. Graceful shutdown...');
+    try {
+        await mongoClient.close();
+        console.log('MongoDB connection closed.');
+        process.exit(0);
+    } catch (error) {
+        console.error('Error during graceful shutdown:', error);
+        process.exit(1);
+    }
+});
+
+app.listen(PORT, async () => {
+    await initializeConnections();
+    console.log(`Server running on http://${config.HOST}:${config.PORT}`);
+    console.log(`Swagger docs available at http://${config.HOST}:${config.PORT}/api-docs`);
+});
+
+export default app;

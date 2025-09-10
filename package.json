@@ -12,13 +12,19 @@
     "@plasmohq/storage": "^1.15.0",
     "@reduxjs/toolkit": "^2.9.0",
     "axios": "^1.6.0",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "lucide-react": "^0.542.0",
+    "mongodb": "^6.19.0",
+    "ollama": "^0.5.17",
+    "pg": "^8.16.3",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router-dom": "6.29.0",
     "redux-persist": "^6.0.0",
-    "redux-persist-webextension-storage": "^1.0.2"
+    "redux-persist-webextension-storage": "^1.0.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
