@@ -1,3 +1,4 @@
+import { MongoClient } from 'mongodb';
 import pg from 'pg';
 import { config } from '../config';
 
@@ -10,7 +11,7 @@ const pool = new Pool({
   database: config.POSTGRES_DB,
   port: Number(config.POSTGRES_PORT),
 });
-/*
+
 const mongoDBConnection = config.MONGO_URL || '';
 let mongoDBName = config.MONGO_DB || '';
 
@@ -24,7 +25,7 @@ export const mongoClient = new MongoClient(mongoDBConnection, {
 });
 
 let mongoConnected = false;
-
+/*
 // Function to ensure MongoDB connection is established
 const ensureMongoConnection = async () => {
   try {

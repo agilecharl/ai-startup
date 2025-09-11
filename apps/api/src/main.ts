@@ -7,7 +7,7 @@ import { mongoClient } from './config/db';
 import { globalErrorHandler, notFoundHandler } from './middleware/errorHandler';
 import router from './routes';
 import swaggerDefinition from './swagger';
-console.log('Environment:', process.env.NODE_ENV);
+
 const app = express();
 const PORT = config.PORT || 3001;
 
