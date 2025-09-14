@@ -25,7 +25,7 @@ export const mongoClient = new MongoClient(mongoDBConnection, {
 });
 
 let mongoConnected = false;
-/*
+
 // Function to ensure MongoDB connection is established
 const ensureMongoConnection = async () => {
   try {
@@ -294,4 +294,3 @@ export const closeMongoConnection = async () => {
     console.log('MongoDB connection closed');
   }
 };
-*/

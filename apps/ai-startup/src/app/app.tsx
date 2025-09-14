@@ -1,6 +1,8 @@
 import AgentsList from '@ai-startup/ai';
 import ServicesList from '@ai-startup/commerce';
 import DefaultNavbar from '@ai-startup/dashboard';
+import { initializeRestClient } from '@ai-startup/data';
+import { useEffect } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 
 const appName = import.meta.env.VITE_APP_NAME;
@@ -12,6 +14,11 @@ const drawerLinks = [
 ];
 
 export function App() {
+
+  useEffect(() => {
+    initializeRestClient({ apiUrl: import.meta.env.VITE_API_URL });
+  }, []);
+
   return (
     <div>
       <DefaultNavbar appName={appName} drawerLinks={drawerLinks} />

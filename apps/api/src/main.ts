@@ -38,7 +38,7 @@ const initializeConnections = async () => {
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
-app.use(router);
+app.use('/api', router);
 
 // Add 404 handler for undefined routes
 app.use(notFoundHandler);

@@ -29,7 +29,7 @@ class AiController {
         params = ` WHERE id = '${crew_id}'`;
       }
 
-      const crews = await db.getPgRecords('central.ai_crews', params);
+      const crews = await db.getPgRecords('ai_crews', params);
       res.status(200).json(crews || []);
     } catch (error) {
       console.error('Error fetching crews:', error);
@@ -61,7 +61,7 @@ class AiController {
         description: req.body.description || null,
       };
 
-      const newCrew = await db.createPgRecord('central.ai_crews', record);
+      const newCrew = await db.createPgRecord('ai_crews', record);
 
       res.status(201).json(newCrew);
     } catch (error) {
@@ -87,7 +87,7 @@ class AiController {
       };
 
       const updatedCrew = await db.updatePgRecord(
-        'central.ai_crews',
+        'ai_crews',
         crew_id,
         record
       );
@@ -111,7 +111,7 @@ class AiController {
       params = params + ` AND id = ${agent_id}`;
     }
 
-    const agents = await db.getPgRecords('central.ai_agents', params);
+    const agents = await db.getPgRecords('ai_agents', params);
     res.status(200).json(agents);
   }
 
@@ -128,7 +128,7 @@ class AiController {
         max_iter: req.body.max_iter,
       };
 
-      const newAgent = await db.createPgRecord('central.ai_agents', record);
+      const newAgent = await db.createPgRecord('ai_agents', record);
 
       res.status(201).json(newAgent);
     } else {
@@ -150,7 +150,7 @@ class AiController {
       };
 
       const updatedAgent = await db.updatePgRecord(
-        'central.ai_agents',
+        'ai_agents',
         req.params.agent_id,
         record
       );
@@ -174,7 +174,7 @@ class AiController {
       params = params + ` AND id = ${task_id}`;
     }
 
-    const tasks = await db.getPgRecords('central.ai_tasks', params);
+    const tasks = await db.getPgRecords('ai_tasks', params);
     res.status(200).json(tasks);
   }
 
@@ -187,7 +187,7 @@ class AiController {
         expected_output: req.body.expected_output,
       };
 
-      const newTask = await db.createPgRecord('central.ai_tasks', record);
+      const newTask = await db.createPgRecord('ai_tasks', record);
 
       res.status(201).json(newTask);
     } else {
@@ -205,7 +205,7 @@ class AiController {
       };
 
       const updatedTask = await db.updatePgRecord(
-        'central.ai_tasks',
+        'ai_tasks',
         req.params.task_id,
         record
       );
@@ -258,10 +258,10 @@ class AiController {
 
           await db
             .getPgRecords(
-              'central.codes',
+              'codes',
               ` WHERE code = 'LLM' ` +
                 `   AND category_id IN (SELECT category_id ` +
-                `                         FROM central.categories ` +
+                `                         FROM categories ` +
                 `                        WHERE category = 'Search Types')`
             )
             .then((codes: any) => {
@@ -269,13 +269,13 @@ class AiController {
             });
 
           await db
-            .getPgRecords('central.searches', ` WHERE search = '${searchSQL}' `)
+            .getPgRecords('searches', ` WHERE search = '${searchSQL}' `)
             .then(async (searches: any) => {
               if (searches.length > 0) {
                 searchId = searches[0].id;
               } else {
                 const createdSearches = await db.createPgRecord(
-                  'central.searches',
+                  'searches',
                   {
                     search: searchSQL,
                     search_type: codeId,
@@ -469,13 +469,13 @@ class AiController {
 
         if (search) {
           const searchRecord = await db.getPgRecords(
-            'central.searches',
+            'searches',
             ` WHERE search = '${search}'`
           );
 
           if (Array.isArray(searchRecord) && searchRecord.length === 0) {
             const newSearchRecord = await db.createPgRecord(
-              'central.searches',
+              'searches',
               {
                 search: search.substring(0, 2900),
                 search_type: response.search_type,
@@ -526,7 +526,7 @@ class AiController {
 
     if (url) {
       const weblinkRecords = (await db.getPgRecords(
-        'central.weblinks',
+        'weblinks',
         ` WHERE url = '${
           typeof url === 'object' ? JSON.stringify(url) : String(url)
         }'`
@@ -537,18 +537,18 @@ class AiController {
           weblinkRecords[0].id
         }'`;
       } else {
-        db.createPgRecord('central.weblinks', {
+        db.createPgRecord('weblinks', {
           url: typeof url === 'object' ? JSON.stringify(url) : String(url),
         });
         params += `${
           params ? ' AND ' : ' WHERE '
-        } url = (SELECT id FROM central.weblinks WHERE url = '${
+        } url = (SELECT id FROM weblinks WHERE url = '${
           typeof url === 'object' ? JSON.stringify(url) : String(url)
         }')`;
       }
     }
 
-    const views = await db.getPgRecords('central.views', params);
+    const views = await db.getPgRecords('views', params);
 
     res.status(200).json(views);
   }
@@ -559,14 +559,14 @@ class AiController {
 
       if (req.body.url) {
         const weblinkRecords = (await db.getPgRecords(
-          'central.weblinks',
+          'weblinks',
           ` WHERE url = '${req.body.url}'`
         )) as any[];
 
         if (weblinkRecords.length > 0) {
           urlId = weblinkRecords[0].id;
         } else {
-          const newWeblink = (await db.createPgRecord('central.weblinks', {
+          const newWeblink = (await db.createPgRecord('weblinks', {
             url: req.body.url,
           })) as DatabaseRecord[];
           urlId = newWeblink[0].id;
@@ -578,7 +578,7 @@ class AiController {
         url: urlId,
       };
 
-      const newView = await db.createPgRecord('central.views', viewRecord);
+      const newView = await db.createPgRecord('views', viewRecord);
 
       res.status(201).json(newView);
     } else {
@@ -592,14 +592,14 @@ class AiController {
 
       if (req.body.url) {
         const weblinkRecords = (await db.getPgRecords(
-          'central.weblinks',
+          'weblinks',
           ` WHERE url = '${req.body.url}'`
         )) as any[];
 
         if (weblinkRecords.length > 0) {
           urlId = weblinkRecords[0].id;
         } else {
-          const newWeblink = (await db.createPgRecord('central.weblinks', {
+          const newWeblink = (await db.createPgRecord('weblinks', {
             url: req.body.url,
           })) as DatabaseRecord[];
           urlId = newWeblink[0].id;
@@ -612,7 +612,7 @@ class AiController {
       };
 
       const updatedView = await db.updatePgRecord(
-        'central.views',
+        'views',
         req.params.view_id,
         viewRecord
       );
@@ -635,7 +635,7 @@ class AiController {
       }'`;
     }
 
-    const templates = await db.getPgRecords('central.prompt_templates', params);
+    const templates = await db.getPgRecords('prompt_templates', params);
     res.status(200).json(templates);
   }
 
@@ -649,7 +649,7 @@ class AiController {
       };
 
       const newTemplate = await db.createPgRecord(
-        'central.prompt_templates',
+        'prompt_templates',
         record
       );
 
@@ -669,7 +669,7 @@ class AiController {
       };
 
       const updatedTemplate = await db.updatePgRecord(
-        'central.prompt_templates',
+        'prompt_templates',
         req.params.template_id,
         record
       );
@@ -690,7 +690,7 @@ class AiController {
       }'`;
     }
 
-    const tools = await db.getPgRecords('central.ai_tools', params);
+    const tools = await db.getPgRecords('ai_tools', params);
     res.status(200).json(tools);
   }
 
@@ -702,7 +702,7 @@ class AiController {
         tool_type: req.body.tool_type || 'crewai',
       };
 
-      const newtool = await db.createPgRecord('central.ai_tools', record);
+      const newtool = await db.createPgRecord('ai_tools', record);
 
       res.status(201).json(newtool);
     } else {
