@@ -1,4 +1,4 @@
-import AgentsList from '@ai-startup/ai';
+import { AgentsList } from '@ai-startup/ai';
 import ServicesList from '@ai-startup/commerce';
 import DefaultNavbar from '@ai-startup/dashboard';
 import { initializeRestClient } from '@ai-startup/data';
