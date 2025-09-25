@@ -1,5 +1,5 @@
 {
-  "name": "@ai-startup/data",
+  "name": "@ai-startup/utils",
   "version": "0.0.1",
   "type": "module",
   "main": "./dist/index.js",
@@ -14,17 +14,7 @@
       "default": "./dist/index.js"
     }
   },
-  "files": [
-    "dist",
-    "!**/*.tsbuildinfo"
-  ],
   "nx": {
-    "name": "data"
-  },
-  "dependencies": {
-    "tslib": "^2.3.0"
-  },
-  "devDependencies": {
-    "@types/redux-persist-webextension-storage": "^1.0.3"
+    "name": "utils"
   }
 }
