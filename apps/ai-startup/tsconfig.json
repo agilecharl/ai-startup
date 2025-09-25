@@ -12,6 +12,9 @@
       "path": "../../libs/commerce"
     },
     {
+      "path": "../../libs/ai"
+    },
+    {
       "path": "./tsconfig.app.json"
     },
     {
