@@ -44,9 +44,6 @@
     },
     {
       "path": "../../libs/commerce/tsconfig.lib.json"
-    },
-    {
-      "path": "../../libs/ai/tsconfig.lib.json"
     }
   ]
 }
