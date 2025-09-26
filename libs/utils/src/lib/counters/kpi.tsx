@@ -1,3 +1,7 @@
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
 import styles from './kpi.module.css';
 
 interface KpiProps {
@@ -7,10 +11,16 @@ interface KpiProps {
 
 export function Kpi({ title, value }: KpiProps) {
   return (
-    <div className={styles['container']}>
-      <h2 className={styles['title']}>{title}</h2>
-      <p className={styles['value']}>{value}</p>
-    </div>
+    <Card>
+      <CardContent>
+      <Typography variant="h6" component="h2">
+        {title}
+      </Typography>
+      <Typography variant="h4" component="p">
+        {value}
+      </Typography>
+      </CardContent>
+    </Card>
   );
 }
 
