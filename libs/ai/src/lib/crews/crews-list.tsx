@@ -48,7 +48,9 @@ const CrewsList = () => {
           {crew.crew}
         </h3>
         <p className="crew-description" style={{ margin: 0, color: '#4a5568', fontSize: '1rem' }}>
-          {crew.description}
+          {crew.description.length > 100
+            ? crew.description.slice(0, 100) + '...'
+            : crew.description}
         </p>
         </div>
       ))}
