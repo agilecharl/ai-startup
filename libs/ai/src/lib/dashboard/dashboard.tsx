@@ -1,24 +1,16 @@
 import { default as CrewsList } from '../crews/crews-list';
+import { Kpi } from '@ai-startup/utils';
 import styles from './dashboard.module.css';
 
 export const Dashboard = () => {
   return (
-    <div className={styles['container']}>
+    <div className={styles['container']}>     
       <section className={styles['kpiSection']}>
       <h2>Key Performance Indicators</h2>
       <div className={styles['kpiGrid']}>
-        <div className={styles['kpiCard']}>
-        <span className={styles['kpiValue']}>24</span>
-        <span className={styles['kpiLabel']}>Active Tasks</span>
-        </div>
-        <div className={styles['kpiCard']}>
-        <span className={styles['kpiValue']}>5</span>
-        <span className={styles['kpiLabel']}>Crews</span>
-        </div>
-        <div className={styles['kpiCard']}>
-        <span className={styles['kpiValue']}>12</span>
-        <span className={styles['kpiLabel']}>Agents</span>
-        </div>
+        <Kpi title="Active Tasks" value={24} />
+        <Kpi title="Crews" value={5} />
+        <Kpi title="Agents" value={12} />
       </div>
       </section>
       <section className={styles['listSection']}>
