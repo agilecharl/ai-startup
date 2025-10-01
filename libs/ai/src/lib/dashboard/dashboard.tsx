@@ -1,6 +1,6 @@
 import { default as CrewsList } from '../crews/crews-list';
 import { KpiDashboard } from '@ai-startup/utils';
-import { TasksList } from '@ai-startup/ai';
+import { AgentsList, TasksList } from '@ai-startup/ai';
 import styles from './dashboard.module.css';
 import { useState } from 'react';
 
@@ -14,6 +14,7 @@ const Kpis = [
 export const Dashboard = () => {
 
   const [showTasks, setShowTasks] = useState(false);
+  const [showAgents, setShowAgents] = useState(false);
 
   return (
     <div
@@ -26,15 +27,23 @@ export const Dashboard = () => {
       }}
     >
       <KpiDashboard kpis={Kpis} />
-      <button
-        className={styles['openTasksButton']}
-        style={{ margin: '16px 0', alignSelf: 'flex-start' }}
-        onClick={() => setShowTasks(true)}
-      >
-        AI Tasks
-      </button>
-      {showTasks && <TasksList onClose={() => setShowTasks(false)} />}
-      {!showTasks && <CrewsList />}
+      <div style={{ display: 'flex', gap: '12px', margin: '16px 0', alignSelf: 'flex-start' }}>
+        <button
+          className={styles['openAgentsButton']}
+          onClick={() => setShowTasks(!showTasks)}
+        >
+          {showTasks ? 'Hide Tasks' : 'AI Tasks'}
+        </button>
+        <button
+          className={styles['openAgentsButton']}
+          onClick={() => setShowAgents(!showAgents)}
+        >
+          {showAgents ? 'Hide Agents' : 'AI Agents'}
+        </button>
+      </div>
+      {showAgents && !showTasks && <AgentsList />}
+      {showTasks && !showAgents && <TasksList onClose={() => setShowTasks(false)} />}
+      {!showTasks && !showAgents && <CrewsList />}
     </div>
   );
 }
