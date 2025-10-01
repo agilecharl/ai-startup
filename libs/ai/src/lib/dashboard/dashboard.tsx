@@ -11,13 +11,17 @@ const Kpis = [
 
 export const Dashboard = () => {
   return (
-    <div className={styles['container']}>
-      <section className={styles['kpiSection']}>
-        <KpiDashboard kpis={Kpis} />
-      </section>
-      <section className={styles['listSection']}>
-        <CrewsList />
-      </section>
+    <div
+      className={styles['container']}
+      style={{
+      minHeight: '100vh',
+
+      display: 'flex',
+      flexDirection: 'column',
+      }}
+    >
+      <KpiDashboard kpis={Kpis} />
+      <CrewsList />
     </div>
   );
 }
