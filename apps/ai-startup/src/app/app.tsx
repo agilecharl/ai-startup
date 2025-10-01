@@ -16,7 +16,15 @@ const drawerLinks = [
 export function App() {
 
   useEffect(() => {
-    initializeRestClient({ apiUrl: import.meta.env.VITE_API_URL });
+    const apiUrl = import.meta.env.VITE_API_URL;
+    console.log('Initializing app with API URL:', apiUrl);
+    console.log('Available environment variables:', Object.keys(import.meta.env));
+    
+    if (!apiUrl) {
+      console.error('VITE_API_URL environment variable is not set. Please check your .env file.');
+    }
+    
+    initializeRestClient({ apiUrl });
   }, []);
 
   return (

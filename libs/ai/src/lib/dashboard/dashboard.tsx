@@ -31,7 +31,7 @@ export const Dashboard = () => {
         style={{ margin: '16px 0', alignSelf: 'flex-start' }}
         onClick={() => setShowTasks(true)}
       >
-        Open AI Tasks
+        AI Tasks
       </button>
       {showTasks && <TasksList onClose={() => setShowTasks(false)} />}
       {!showTasks && <CrewsList />}
