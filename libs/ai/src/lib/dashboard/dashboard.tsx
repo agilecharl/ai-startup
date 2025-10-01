@@ -1,6 +1,8 @@
 import { default as CrewsList } from '../crews/crews-list';
 import { KpiDashboard } from '@ai-startup/utils';
+import { TasksList } from '@ai-startup/ai';
 import styles from './dashboard.module.css';
+import { useState } from 'react';
 
 const Kpis = [
   { title: 'Total Agents', value: 12 },
@@ -10,6 +12,9 @@ const Kpis = [
 ];
 
 export const Dashboard = () => {
+
+  const [showTasks, setShowTasks] = useState(false);
+
   return (
     <div
       className={styles['container']}
@@ -21,7 +26,15 @@ export const Dashboard = () => {
       }}
     >
       <KpiDashboard kpis={Kpis} />
-      <CrewsList />
+      <button
+        className={styles['openTasksButton']}
+        style={{ margin: '16px 0', alignSelf: 'flex-start' }}
+        onClick={() => setShowTasks(true)}
+      >
+        Open AI Tasks
+      </button>
+      {showTasks && <TasksList onClose={() => setShowTasks(false)} />}
+      {!showTasks && <CrewsList />}
     </div>
   );
 }

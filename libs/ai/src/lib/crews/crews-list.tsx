@@ -27,7 +27,7 @@ const CrewsList = () => {
 
   return (
     <div style={{ padding: '2rem', flex: 1, backgroundColor: 'lightblue' }}>
-      <h2 className="crews-title" style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', fontWeight: 700 }}>
+      <h2 className="crews-title" style={{ marginBottom: '2rem', fontSize: '2rem', fontWeight: 700 }}>
       🚀 Available AI Crews
       </h2>
       <div
