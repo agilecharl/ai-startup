@@ -22,7 +22,11 @@ app.use(express.urlencoded({ extended: true }));
 
 const specs = swaggerJsdoc({
     definition: swaggerDefinition,
-    apis: ['./src/routes/*.ts'], // Path to route files
+    apis: [
+        './src/routes/*.ts', // Development path
+        './routes/*.ts',     // Alternative path
+        __dirname + '/routes/*.ts' // Absolute path fallback
+    ],
 });
 
 // Initialize MongoDB connection on startup

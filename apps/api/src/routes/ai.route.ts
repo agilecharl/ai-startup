@@ -1,47 +1,73 @@
 import { Router } from 'express';
 import AiController from '../controllers/ai.controller';
-import { config } from 'dotenv';
 
 const configRouter = Router();
 
 /**
  * @swagger
- * /ai/crews:
+ * /api/ai/crews:
  *   get:
- *     summary: Retrieve ai crews
- *     description: Returns ai crews.
+ *     tags: [Crews]
+ *     summary: Retrieve all AI crews
+ *     description: Returns a list of all available AI crews in the system.
  *     responses:
  *       200:
- *         description: A successful response
+ *         description: Successfully retrieved AI crews
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
  *                 message:
  *                   type: string
- *                   example: "AI Crews data"
+ *                   example: "AI Crews retrieved successfully"
  */
 
 configRouter.get('/crews', AiController.getCrews);
 
 /**
  * @swagger
- * /ai/crew:
+ * /api/ai/crew:
  *   post:
- *     summary: Creates ai crew
- *     description: Creates ai crew.
+ *     tags: [Crews]
+ *     summary: Create a new AI crew
+ *     description: Creates a new AI crew with the provided configuration.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 example: "Marketing Crew"
+ *               description:
+ *                 type: string
+ *                 example: "A crew focused on marketing tasks"
  *     responses:
  *       201:
- *         description: A successful response
+ *         description: AI crew created successfully
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
  *                 message:
  *                   type: string
- *                   example: "AI Crew data"
+ *                   example: "AI Crew created successfully"
  */
 
 configRouter.post('/crew', AiController.insertCrew);
@@ -69,21 +95,29 @@ configRouter.put('/crew/:crew_id', AiController.updateCrew);
 
 /**
  * @swagger
- * /ai/agents:
+ * /api/ai/agents:
  *   get:
- *     summary: Retrieve ai agents
- *     description: Returns ai agents.
+ *     tags: [Agents]
+ *     summary: Retrieve all AI agents
+ *     description: Returns a list of all available AI agents in the system.
  *     responses:
  *       200:
- *         description: A successful response
+ *         description: Successfully retrieved AI agents
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
  *                 message:
  *                   type: string
- *                   example: "AI Agents data"
+ *                   example: "AI Agents retrieved successfully"
  */
 
 configRouter.get('/agents', AiController.getAgents);
@@ -195,21 +229,44 @@ configRouter.put('/task/:task_id', AiController.updateTask);
 
 /**
  * @swagger
- * /ai/generate:
- *   get:
+ * /api/ai/generate:
+ *   post:
+ *     tags: [AI Generation]
  *     summary: Generate AI response
- *     description: Generate AI response
+ *     description: Generate an AI response based on the provided prompt and configuration.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               prompt:
+ *                 type: string
+ *                 example: "Create a marketing plan for a tech startup"
+ *               model:
+ *                 type: string
+ *                 example: "gpt-4"
  *     responses:
  *       200:
- *         description: A successful response
+ *         description: AI response generated successfully
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     response:
+ *                       type: string
+ *                       example: "Here's your generated marketing plan..."
  *                 message:
  *                   type: string
- *                   example: "AI response"
+ *                   example: "AI response generated successfully"
  */
 
 configRouter.post('/generate', AiController.generate);
