@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
+import path from "path";
 
-dotenv.config();
+// Load environment variables from the correct .env file
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 export const config = {
     appName: process.env.appName,

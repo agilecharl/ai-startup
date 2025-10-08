@@ -1,11 +1,12 @@
 // Swagger configuration for AI Startup API
+import { config } from './config';
 
 const swaggerDefinition = {
     openapi: "3.0.0",
     info: {
-        title: process.env.SWAGGER_TITLE || "Default Title",
+        title: process.env.SWAGGER_TITLE || "AI Startup API",
         version: process.env.SWAGGER_VERSION || "1.0.0",
-        description: process.env.SWAGGER_DESCRIPTION || "Default Description",
+        description: process.env.SWAGGER_DESCRIPTION || "A comprehensive API for AI startup operations including crews, agents, tasks, templates, and AI response generation",
         contact: {
             name: "API Support",
             email: "support@ai-startup.com"
@@ -13,8 +14,8 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            url: `http://${process.env.HOST}:${process.env.PORT}`,
-            description: process.env.SWAGGER_SERVER_DESCRIPTION || "Default Server Description",
+            url: `http://${config.HOST}:${config.PORT}`,
+            description: process.env.SWAGGER_SERVER_DESCRIPTION || "Development Server",
         },
     ],
     tags: [
