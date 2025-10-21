@@ -14,18 +14,36 @@ store.subscribe(() => {
   mongoCollection = state.mongoCollection;
 });
 
-export const initializeRestClient = (config: { apiUrl: string }) => {
-  if (!config.apiUrl) {
-    console.warn('API URL not provided during initialization. Some features may not work properly.');
+export const initializeRestClient = (config: { apiUrl?: string }) => {
+  const configUrl = config?.apiUrl;
+  const envUrl = import.meta.env.VITE_API_URL;
+  
+  if (configUrl) {
+    apiUrl = configUrl;
+  } else if (envUrl) {
+    apiUrl = envUrl;
+  } else {
+    console.warn('API URL not provided during initialization and VITE_API_URL not set. Some features may not work properly.');
     return;
   }
-  apiUrl = config.apiUrl;
+  
   console.log('REST client initialized with API URL:', apiUrl);
 };
 
 export const getRecords = (url: string, params: any) => {
+  // If apiUrl is not set, try to get it from environment variables directly
   if (!apiUrl) {
-    throw new Error('API URL not configured. Please ensure VITE_API_URL is set in your .env file and the server is running. Current environment variables: ' + JSON.stringify(Object.keys(process?.env || {}).filter(key => key.startsWith('VITE_'))));
+    const envUrl = import.meta.env.VITE_API_URL;
+    
+    if (envUrl) {
+      apiUrl = envUrl;
+      console.log('REST client auto-initialized with API URL:', apiUrl);
+    } else {
+      // Get environment variables available in browser (Vite environment)
+      const envObj = (import.meta as any).env || {};
+      const envVars = Object.keys(envObj).filter((key: string) => key.startsWith('VITE_'));
+      throw new Error('API URL not configured. Please ensure VITE_API_URL is set in your .env file and the server is running. Current environment variables: ' + JSON.stringify(envVars));
+    }
   }
 
   const queryParams = new URLSearchParams(params).toString();

@@ -1,6 +1,7 @@
 import { getRecords } from '@ai-startup/data';
 import { useEffect, useState } from 'react';
 import './agents-list.module.css';
+import CrudMenu from '../../../../utils/src/lib/crud-menu/crud-menu';
 
 type Agent = {
   agent: string;
@@ -53,6 +54,7 @@ const AgentsList = () => {
         </div>
       ))}
       </div>
+      <CrudMenu objectName="agent" apiBase="/api/agents" idField="agent" />
     </div>
   );
 };

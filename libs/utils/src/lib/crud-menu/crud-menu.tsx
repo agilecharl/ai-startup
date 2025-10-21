@@ -170,9 +170,9 @@ export function CrudMenu({ objectName, apiBase = '/api', idField = 'id' }: CrudM
 
               <div style={{ marginBottom: 8 }}>
               <label style={{ display: 'block', marginBottom: 4 }}>Object JSON</label>
+              {/* TODO: Add onChange handler for textarea */}
               <textarea
                 value={jsonText}
-                // onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setJsonText(e.target.value)}
                 rows={12}
                 style={{ width: '100%', fontFamily: 'monospace' }}
                 readOnly={modalMode === 'delete'}
