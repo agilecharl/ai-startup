@@ -1,8 +1,8 @@
 import { default as CrewsList } from '../crews/crews-list';
 import { KpiDashboard } from '@ai-startup/utils';
-import { AgentsList, TasksList } from '@ai-startup/ai';
+import { AgentsList, TasksList, ToolsList } from '@ai-startup/ai';
 import styles from './dashboard.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Kpis = [
   { title: 'Total Agents', value: 12 },
@@ -15,6 +15,13 @@ export const Dashboard = () => {
 
   const [showTasks, setShowTasks] = useState(false);
   const [showAgents, setShowAgents] = useState(false);
+  const [showTools, setShowTools] = useState(false);
+
+  useEffect(() => {
+    setShowAgents(false);
+    setShowTasks(false);
+    setShowTools(false);  
+  }, []);
 
   return (
     <div
@@ -40,10 +47,17 @@ export const Dashboard = () => {
         >
           {showAgents ? 'Hide Agents' : 'AI Agents'}
         </button>
+        <button
+          className={styles['openToolsButton']}
+          onClick={() => setShowTools(!showTools)}
+        >
+          {showTools ? 'Hide Tools' : 'AI Tools'}
+        </button>
       </div>
-      {showAgents && !showTasks && <AgentsList />}
-      {showTasks && !showAgents && <TasksList onClose={() => setShowTasks(false)} />}
-      {!showTasks && !showAgents && <CrewsList />}
+      {showAgents && !showTasks && !showTools && <AgentsList />}
+      {showTasks && !showAgents && !showTools && <TasksList onClose={() => setShowTasks(false)} />}
+      {showTools && !showAgents && !showTasks && <ToolsList onClose={() => setShowTools(false)} />}
+      {!showTasks && !showAgents && !showTools && <CrewsList />}
     </div>
   );
 }
