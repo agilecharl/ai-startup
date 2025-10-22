@@ -33,6 +33,7 @@ export function CrudMenu({ objectName, apiBase = '/api', idField = 'id' }: CrudM
       const res = await fetch(baseUrl, { method: 'GET' });
       if (!res.ok) throw new Error(`Failed to fetch ${objectName}: ${res.statusText}`);
       const data = await res.json();
+      console.log(data);
       setItems(Array.isArray(data) ? data : []);
     } catch (err: any) {
       setError(err?.message || 'Unknown error');
